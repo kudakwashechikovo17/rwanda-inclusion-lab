@@ -1,54 +1,89 @@
-# 🇷🇼 Rwanda Inclusion Lab
+# IMIBEREHO
 
-A runnable Streamlit prototype for **NISR 2026 Hackathon — Track 2: Financial Inclusion & Poverty Reduction**.
+Rwanda Financial Inclusion & Poverty Intelligence Platform
 
-## Research question
-Where are poverty-related vulnerabilities concentrated in Rwanda, and where should financial-inclusion initiatives investigate further?
+## Overview
+IMIBEREHO is a Streamlit-based decision-support dashboard for Rwanda’s poverty and financial inclusion analysis. It helps policymakers, NGOs, financial institutions, and researchers understand where poverty vulnerability is concentrated and where deeper financial inclusion follow-up may be justified.
 
-**Important:** The EICV7 poverty-profile workbook does **not**, by itself, measure financial exclusion. The app does not invent financial-access statistics or imply causation.
+The platform is designed for the National Institute of Statistics of Rwanda (NISR) 2026 Big Data Hackathon under the Financial Inclusion & Poverty Reduction track.
 
-## Features
-- Downloads the official NISR EICV7 Excel workbook (or accepts an uploaded copy if the download is blocked)
-- Browses worksheets and searches for poverty-related rows
-- Charts selected numeric columns and exports them to CSV
-- Explains the limits of using poverty data to target financial-inclusion research
+## Problem statement
+Poverty and vulnerability are not evenly distributed across Rwanda. Local institutions need a transparent way to identify vulnerable communities, understand which indicators matter most, and prioritize interventions without overstating what the available data can prove.
 
-## Run locally
-```bash
-git clone https://github.com/YOUR_USERNAME/rwanda-inclusion-lab.git
-cd rwanda-inclusion-lab
-python -m venv .venv
-# macOS/Linux: source .venv/bin/activate
-# Windows: .venv\\Scripts\\activate
-pip install -r requirements.txt
-streamlit run app.py
-```
-Then open the local URL shown by Streamlit.
+This application focuses on real evidence from the official NISR EICV7 Rwanda Poverty Profile workbook and makes the distinction explicit:
 
-## Push to GitHub
-Create an empty **public** repository named `rwanda-inclusion-lab`, then run:
-```bash
-git init
-git add .
-git commit -m "Initial Rwanda Inclusion Lab prototype"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/rwanda-inclusion-lab.git
-git push -u origin main
-```
-Replace `YOUR_USERNAME` with your actual GitHub username. This archive is not automatically connected to your account.
+- Poverty vulnerability is a useful targeting proxy.
+- Financial exclusion is a separate concept that requires direct financial-access data.
+- The dashboard presents poverty-based prioritization signals clearly, not measured exclusion rates.
 
-## Deploy
-1. Push the repository to GitHub.
-2. Open https://share.streamlit.io and choose **Create app**.
-3. Select the repository, branch `main`, and entrypoint `app.py`.
-4. Deploy and share the public app URL. If NISR blocks server downloads, upload the workbook through the app sidebar.
+## Hackathon track
+National Institute of Statistics of Rwanda (NISR) Big Data Hackathon 2026
+Track: Financial Inclusion & Poverty Reduction
 
-## Dataset
-National Institute of Statistics of Rwanda (NISR), EICV7 Rwanda Poverty Profile tables:
+## Application features
+- Executive dashboard with validated national indicators
+- Poverty explorer with filters for geography and indicator type
+- Financial inclusion intelligence view with poverty-based prioritization proxies
+- Intervention priority engine with adjustable weights and explainable scoring
+- Community comparison module for side-by-side analysis
+- Data and methodology documentation
+- Downloadable CSV exports for analysis
+- Robust handling of workbook downloads, invalid data, and missing values
+
+## Technology stack
+- Python
+- Streamlit
+- Pandas
+- Plotly
+- OpenPyXL
+- Requests
+- Pytest
+
+## Dataset sources
+Official source:
 https://statistics.gov.rw/sites/default/files/documents/2025-05/EICV7_Tables_Rwanda_Poverty_Profile.xlsx
 
-## Next improvement
-Add a separately sourced financial-access dataset with matching area definitions and periods; report financial exclusion directly, and compare it with poverty carefully.
+The application automatically attempts to download the official workbook, and it supports manual Excel upload as a fallback if the source is unavailable.
 
-## Hackathon disclosure
-Disclose AI assistance and acknowledge NISR data in your submission. Review the competition's originality and eligibility requirements.
+## Installation
+```bash
+git clone https://github.com/kudakwashechikovo17/rwanda-inclusion-lab.git
+cd rwanda-inclusion-lab
+python -m pip install -r requirements.txt
+python -m streamlit run app.py
+```
+
+## Usage
+1. Open the local Streamlit app.
+2. Load the official NISR dataset or upload an Excel workbook from the sidebar.
+3. Explore the dashboard, poverty explorer, and intervention engine.
+4. Export filtered tables for review or sharing.
+5. Review methodology notes before using the prioritization outputs for policy design.
+
+## Methodology
+The platform reads each worksheet in the EICV7 workbook, identifies likely header rows, removes titles and notes, and retains only rows that contain valid numeric observations. The data-cleaning layer strips obvious metadata rows and avoids treating workbook titles as statistical evidence.
+
+Priority scoring is then performed using explainable, user-adjustable weights. The results are recommendations for follow-up investigation, not direct financial exclusion rates.
+
+## Limitations
+- The dashboard relies on the official poverty workbook as the evidence base.
+- Poverty data do not directly measure formal financial inclusion.
+- Financial exclusion requires separate access data, such as bank account, mobile money, or credit indicators.
+- Source worksheets may vary in structure, merged cells, or row layout.
+- The platform presents only validated numeric outputs and clearly labels proxy-based findings.
+
+## Screenshots
+Screenshots can be added here after the app is deployed or during presentation review.
+
+## GitHub repository
+Repository: https://github.com/kudakwashechikovo17/rwanda-inclusion-lab
+
+## Future improvements
+- Add direct financial access data from FinScope or similar datasets
+- Integrate district-level geospatial visualization
+- Add a richer intervention recommendation engine tied to local policy programs
+- Include more explicit year-over-year poverty trend views
+- Expand data validation and indicator taxonomy for other Rwanda household surveys
+
+## Contribution to poverty reduction and financial inclusion
+IMIBEREHO helps decision-makers identify where vulnerability is concentrated and where financial inclusion programs may need additional evidence, outreach, and product design. It supports smarter allocation of resources while keeping the distinction between poverty vulnerability and direct financial exclusion transparent.
