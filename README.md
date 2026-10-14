@@ -72,9 +72,6 @@ Priority scoring is then performed using explainable, user-adjustable weights. T
 - Source worksheets may vary in structure, merged cells, or row layout.
 - The platform presents only validated numeric outputs and clearly labels proxy-based findings.
 
-## Screenshots
-Screenshots can be added here after the app is deployed or during presentation review.
-
 ## GitHub repository
 Repository: https://github.com/kudakwashechikovo17/rwanda-inclusion-lab
 
