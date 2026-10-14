@@ -45,4 +45,4 @@ def render_community_comparison():
 
     st.subheader("Vulnerability summary")
     summary = comparison.groupby("area", as_index=False)["value"].mean().sort_values("value", ascending=False)
-    st.bar_chart(summary.set_index("area")["value"])
+    render_bar_chart(summary, x_col="area", y_col="value", title="Average vulnerability by community")
