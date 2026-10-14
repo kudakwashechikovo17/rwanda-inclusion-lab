@@ -7,6 +7,9 @@ IMIBEREHO is a Streamlit-based decision-support dashboard for Rwanda’s poverty
 
 The platform is designed for the National Institute of Statistics of Rwanda (NISR) 2026 Big Data Hackathon under the Financial Inclusion & Poverty Reduction track.
 
+<img width="1919" height="1043" alt="image" src="https://github.com/user-attachments/assets/02ce4cce-a4b8-4046-8a84-02107086da62" />
+
+
 ## Problem statement
 Poverty and vulnerability are not evenly distributed across Rwanda. Local institutions need a transparent way to identify vulnerable communities, understand which indicators matter most, and prioritize interventions without overstating what the available data can prove.
 
