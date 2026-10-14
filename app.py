@@ -8,7 +8,7 @@ from pages.intervention_planner import render_intervention_planner
 from pages.methodology import render_methodology
 from pages.poverty_explorer import render_poverty_explorer
 
-st.set_page_config(page_title="IMIBEREHO", page_icon="🇷🇼", layout="wide")
+st.set_page_config(page_title="IMIBEREHO", page_icon=":material/insights:", layout="wide")
 
 st.markdown(
     """
@@ -26,26 +26,73 @@ st.markdown(
             color: var(--text);
         }
         [data-testid="stSidebar"] {
-            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
+            background: #101019;
+            color: #F4F4F7;
         }
-        .brand-box {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 18px;
-            padding: 1rem;
-            margin-bottom: 1rem;
+        [data-testid="stSidebar"] [data-testid="stSidebarContent"] {
+            padding: 1.35rem 1rem 1rem;
         }
-        .brand-mark {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: 0.08em;
+        [data-testid="stSidebar"] h3 {
             color: #FFFFFF;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.15rem;
         }
-        .brand-subtitle {
-            font-size: 0.76rem;
-            color: rgba(255,255,255,0.8);
-            margin-top: 0.45rem;
+        [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+            color: #AAAAB6;
+            font-size: 0.82rem;
+        }
+        [data-testid="stSidebar"] [data-testid="stTextInput"] input {
+            background: #383842;
+            color: #FFFFFF;
+            border: 1px solid #45454F;
+            border-radius: 7px;
+            min-height: 2.65rem;
+        }
+        [data-testid="stSidebar"] [data-testid="stTextInput"] input::placeholder {
+            color: #AAAAB6;
+        }
+        [data-testid="stSidebar"] a[data-testid*="PageLink"] {
+            color: #AAAAB6;
+            border-radius: 7px;
+            min-height: 2.65rem;
+            padding: 0.55rem 0.65rem;
+            transition: background-color 120ms ease, color 120ms ease;
+        }
+        [data-testid="stSidebar"] a[data-testid*="PageLink"]:hover {
+            color: #FFFFFF;
+            background: #24242E;
+        }
+        [data-testid="stSidebar"] a[data-testid*="PageLink"][aria-current="page"] {
+            color: #101019;
+            background: #FFFFFF;
+            font-weight: 600;
+        }
+        [data-testid="stSidebar"] a[data-testid*="PageLink"][aria-current="page"] span {
+            color: #101019;
+        }
+        [data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.sidebar-active-marker) + [data-testid="stElementContainer"] a[data-testid="stPageLink-NavLink"] {
+            color: #101019;
+            background: #FFFFFF;
+            font-weight: 600;
+        }
+        [data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.sidebar-active-marker) + [data-testid="stElementContainer"] a[data-testid="stPageLink-NavLink"] span {
+            color: #101019;
+        }
+        [data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.sidebar-active-marker) + [data-testid="stElementContainer"] a[data-testid="stPageLink-NavLink"] p {
+            color: #101019;
+        }
+        .sidebar-section-label {
+            color: #777784;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            margin: 1.15rem 0 0.35rem;
+            text-transform: uppercase;
+        }
+        .sidebar-rule {
+            border-top: 1px solid #292933;
+            margin: 1rem 0 0.8rem;
         }
         .metric-card {
             background: var(--card);
@@ -117,21 +164,38 @@ st.markdown(
             border: none;
             font-weight: 700;
         }
+        [data-testid="stSidebar"] .stButton > button {
+            color: #FFFFFF;
+        }
+        [data-testid="stSidebar"] .stButton > button p {
+            color: #FFFFFF !important;
+        }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-render_sidebar()
+page_groups = {
+    "OVERVIEW": [
+        (st.Page(render_dashboard, title="Executive Dashboard", icon=":material/dashboard:"), ":material/dashboard:"),
+    ],
+    "EXPLORE": [
+        (st.Page(render_poverty_explorer, title="Poverty Explorer", icon=":material/search_insights:"), ":material/search_insights:"),
+        (st.Page(render_financial_inclusion, title="Financial Inclusion Intelligence", icon=":material/account_balance:"), ":material/account_balance:"),
+    ],
+    "PRIORITIZE": [
+        (st.Page(render_intervention_planner, title="Intervention Priority Engine", icon=":material/ads_click:"), ":material/ads_click:"),
+        (st.Page(render_community_comparison, title="Community Comparison", icon=":material/compare_arrows:"), ":material/compare_arrows:"),
+    ],
+    "REFERENCE": [
+        (st.Page(render_methodology, title="Data & Methodology", icon=":material/menu_book:"), ":material/menu_book:"),
+    ],
+}
 
-pages = [
-    st.Page(render_dashboard, title="Executive Dashboard", icon="📊"),
-    st.Page(render_poverty_explorer, title="Poverty Explorer", icon="🔎"),
-    st.Page(render_financial_inclusion, title="Financial Inclusion Intelligence", icon="💳"),
-    st.Page(render_intervention_planner, title="Intervention Priority Engine", icon="🎯"),
-    st.Page(render_community_comparison, title="Community Comparison", icon="📈"),
-    st.Page(render_methodology, title="Data & Methodology", icon="🧭"),
-]
-
-page = st.navigation(pages, position="sidebar")
+navigation_groups = {
+    label: [page_item for page_item, _icon in grouped_pages]
+    for label, grouped_pages in page_groups.items()
+}
+page = st.navigation(navigation_groups, position="hidden")
+render_sidebar(page_groups, page.title)
 page.run()
